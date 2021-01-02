@@ -5,11 +5,10 @@ class Language {
 
   Language({this.id, this.languageCode, this.name});
 
-  static List<Language>languageList(){
+  static List<Language> languageList() {
     return <Language>[
-      Language(id: 1,languageCode:"en",name: "English"),
-      Language(id:2,languageCode: "eg",name: "العربية")
+      Language(id: 1, languageCode: "ar", name: "العربية"),
+      Language(id: 2, languageCode: "en", name: "English"),
     ];
   }
-
 }

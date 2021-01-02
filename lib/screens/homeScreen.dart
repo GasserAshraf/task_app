@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:task_app/screens/mainScreen.dart';
+import 'package:task_app/screens/settingscreen.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -9,6 +10,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int _currentTabIndex = 0;
   MainScreen mainScreen;
+  SettingScreen settingScreen;
   List<Widget> _screenss;
   Widget currentScreen;
 
@@ -16,7 +18,8 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     // TODO: implement initState
     mainScreen = MainScreen();
-    _screenss = [mainScreen, mainScreen, mainScreen, mainScreen];
+    settingScreen =SettingScreen();
+    _screenss = [mainScreen, settingScreen, mainScreen, mainScreen];
     currentScreen = mainScreen;
   }
 
@@ -59,6 +62,7 @@ class _HomeScreenState extends State<HomeScreen> {
         onTap: (int index) {
           setState(() {
             _currentTabIndex = index;
+            print(_currentTabIndex);
             print("change");
           });
         },
