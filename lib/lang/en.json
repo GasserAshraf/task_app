@@ -39,5 +39,7 @@
   "Drug reminder": "Drug reminder",
   "number verification": "number verification",
   "verification message": "We have sent you a code on the phone number for you to create the account",
-  "Activate": "ِActivate"}
+  "Activate": "ِActivate",
+  "logout": "Log out"
+}
 

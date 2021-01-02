@@ -149,7 +149,7 @@ class _ThirdWizardState extends State<ThirdWizard> {
                               opaque: true,
                               transitionDuration: const Duration(seconds:1 ),
                               pageBuilder: (BuildContext context, _, __) {
-                                return new SettingScreen();
+                                return new LoginScreen();
                               },
                               transitionsBuilder: (_, Animation<double> animation, __, Widget child) {
                                 return new SlideTransition(

@@ -7,6 +7,7 @@ import 'package:task_app/screens/homeScreen.dart';
 import 'package:task_app/screens/leadingWizard/firstScreen.dart';
 import 'package:task_app/screens/settingscreen.dart';
 import 'package:task_app/screens/signUpScreen.dart';
+import 'package:task_app/screens/splashScreen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -48,7 +49,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: SignUpScreen(),
+      home: SplashScreen(),
       locale: _locale,
       supportedLocales: [Locale('en', 'US'), Locale('ar', 'EG')],
       localizationsDelegates: [

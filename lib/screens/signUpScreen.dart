@@ -108,7 +108,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           ),
                         ),
                         Row(
-                          textDirection: TextDirection.rtl,
+                         // textDirection: TextDirection.rtl,
                           children: [
                             Expanded(
                               child: CustomTextFormField(
@@ -116,7 +116,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 onClick: (value) {
                                   _name = value;
                                 },
-                                hint:getTranslated(context, "lastname"),
+                                hint: getTranslated(context, "firstname"),
                               ),
                             ),
                             SizedBox(
@@ -128,13 +128,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 onClick: (value) {
                                   _name = value;
                                 },
-                                hint: getTranslated(context, "firstname"),
+                                hint:getTranslated(context, "lastname"),
                               ),
                             ),
+
+
                           ],
                         ),
                         SizedBox(
-                          height: height * 0.02,
+                          height: height * 0.01,
                         ),
                         CustomTextFormField(
                           icon: Icons.mail,
@@ -144,7 +146,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           hint: getTranslated(context, "email"),
                         ),
                         SizedBox(
-                          height: height * 0.02,
+                          height: height * 0.01,
                         ),
                         CustomTextFormField(
                           icon: Icons.phone_iphone,
@@ -154,7 +156,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           hint:getTranslated(context, "phone") ,
                         ),
                         SizedBox(
-                          height: height * 0.02,
+                          height: height * 0.01,
                         ),
                         CustomTextFormField(
                           icon: Icons.lock,
@@ -164,7 +166,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           hint: getTranslated(context,"password"),
                         ),
                         SizedBox(
-                          height: height * 0.02,
+                          height: height * 0.01,
                         ),
                         Container(
                           alignment: Alignment.bottomCenter,
@@ -189,7 +191,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           ),
                         ),
                         SizedBox(
-                          height: height * 0.02,
+                          height: height * 0.01,
                         ),
                         Container(
                           alignment: Alignment.center,
@@ -225,6 +227,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             ),
                           ),
                         ),
+                        SizedBox(height: height*0.1,),
                         Container(
                           //height: height*0.95,
                           alignment: Alignment.bottomCenter,

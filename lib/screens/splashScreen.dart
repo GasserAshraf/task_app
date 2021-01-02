@@ -41,7 +41,7 @@ class _SplashScreenState extends State<SplashScreen> {
             );
           }));
     });
-    Timer(Duration(seconds: 2), () {
+    Timer(Duration(seconds: 1), () {
       afterBuild(context);
     });
   }
