@@ -39,7 +39,7 @@ dependencies:
   otp_screen: ^0.0.3
   pinput :
   cloud_firestore: ^0.14.4
-
+  shared_preferences: ^0.5.12+4
   flutter_svg:
 
 dev_dependencies:

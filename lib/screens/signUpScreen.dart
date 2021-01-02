@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:task_app/Services/Auth.dart';
 import 'package:task_app/Widgets/CustomTextFormField.dart';
+import 'package:task_app/localization/translation.dart';
 import 'package:task_app/screens/loginScreen.dart';
+import 'package:task_app/screens/settingscreen.dart';
 import 'package:task_app/screens/validationScreen.dart';
+
+import 'homeScreen.dart';
 
 class SignUpScreen extends StatefulWidget {
   @override
@@ -35,7 +39,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     child: Padding(
                       padding: const EdgeInsets.only(top: 20.0),
                       child: Text(
-                        "انشاء حساب جديد",
+                        getTranslated(context, "createnewaccount"),
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: 20,
@@ -44,12 +48,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(top: 100, left: 100),
-                    child: Container(
-                      height: height * 0.2,
-                      width: width * 0.5,
-                      child: Image(
-                        image: AssetImage("images/Loginicon.png"),
+                    padding: const EdgeInsets.only(top: 100),
+                    child: Center(
+                      child: Container(
+                        height: height * 0.2,
+                        width: width * 0.5,
+                        child: Image(
+                          image: AssetImage("images/Loginicon.png"),
+                        ),
                       ),
                     ),
                   ),
@@ -66,7 +72,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10.0),
                               ),
-                              onPressed: () {},
+                              onPressed: () async{
+                               await _auth.facebookSigninMethod();
+                                Navigator.of(context).pushReplacement(
+                                    MaterialPageRoute(
+                                        builder: (context) => HomeScreen()));
+                              },
                               child: Container(
                                 width: width * 0.6,
                                 child: Row(
@@ -74,14 +85,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    ImageIcon(
-                                      AssetImage("images/facebook.png"),
-                                      color: Colors.white,
+                                    Expanded(
+                                      child: ImageIcon(
+                                        AssetImage("images/facebook.png"),
+                                        color: Colors.white,
+                                      ),
                                     ),
                                     Opacity(
                                       opacity: 0.8,
                                       child: Text(
-                                        "تسجيل الدخول عبر الفيسبوك",
+                                        getTranslated(
+                                            context, "loginbyfacebook"),
                                         style: TextStyle(
                                             color: Colors.white, fontSize: 20),
                                       ),
@@ -102,7 +116,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 onClick: (value) {
                                   _name = value;
                                 },
-                                hint: "الاسم الاول",
+                                hint:getTranslated(context, "lastname"),
                               ),
                             ),
                             SizedBox(
@@ -114,7 +128,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 onClick: (value) {
                                   _name = value;
                                 },
-                                hint: "اسم العائلة",
+                                hint: getTranslated(context, "firstname"),
                               ),
                             ),
                           ],
@@ -127,7 +141,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           onClick: (value) {
                             _mail = value;
                           },
-                          hint: "البريد الالكتروني",
+                          hint: getTranslated(context, "email"),
                         ),
                         SizedBox(
                           height: height * 0.02,
@@ -137,7 +151,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           onClick: (value) {
                             _number = value;
                           },
-                          hint: "رقم الهاتف",
+                          hint:getTranslated(context, "phone") ,
                         ),
                         SizedBox(
                           height: height * 0.02,
@@ -147,7 +161,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           onClick: (value) {
                             _password = value;
                           },
-                          hint: "كلمة المرور",
+                          hint: getTranslated(context,"password"),
                         ),
                         SizedBox(
                           height: height * 0.02,
@@ -159,7 +173,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                "عند الضغط على انشاء حساب توافق على",
+                                getTranslated(context, "alert"),
                               ),
                               SizedBox(
                                 width: width * 0.01,
@@ -167,7 +181,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               GestureDetector(
                                 onTap: () {},
                                 child: Text(
-                                  "الشروط و الاحكام",
+                                  getTranslated(context, "polices"),
                                   style: TextStyle(color: Colors.blue),
                                 ),
                               ),
@@ -189,8 +203,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 if (_globalKey.currentState.validate()) {
                                   _globalKey.currentState.save();
                                   try {
-
-                                   // _auth.signUp(_mail, _password);
+                                    // _auth.signUp(_mail, _password);
                                     // String uid = await _auth.signUp(_mail, _password);
                                     Navigator.of(context).pushReplacement(
                                         MaterialPageRoute(
@@ -204,7 +217,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               child: Opacity(
                                 opacity: 0.8,
                                 child: Text(
-                                  "تسجيل الدخول",
+                                  getTranslated(context, "login"),
                                   style: TextStyle(
                                       color: Colors.white, fontSize: 20),
                                 ),
@@ -216,11 +229,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           //height: height*0.95,
                           alignment: Alignment.bottomCenter,
                           child: Row(
-                            textDirection: TextDirection.rtl,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                "لديك حساب بالفعل",
+                                getTranslated(context, "alreadyhaveacccount"),
                               ),
                               SizedBox(
                                 width: width * 0.03,
@@ -250,7 +262,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                           }));
                                 },
                                 child: Text(
-                                  "تسجيل الدخول",
+                                  getTranslated(context,"login"),
                                   style: TextStyle(color: Colors.blue),
                                 ),
                               ),

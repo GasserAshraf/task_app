@@ -2,7 +2,11 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:task_app/localization/demo_localization.dart';
+import 'package:task_app/localization/translation.dart';
+import 'package:task_app/screens/homeScreen.dart';
+import 'package:task_app/screens/leadingWizard/firstScreen.dart';
 import 'package:task_app/screens/settingscreen.dart';
+import 'package:task_app/screens/signUpScreen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -12,11 +16,9 @@ void main() async {
 }
 
 class MyApp extends StatefulWidget {
-
-  static void setLocale(BuildContext context,Locale locale){
-    _MyAppState state =context.findAncestorStateOfType<_MyAppState>();
+  static void setLocale(BuildContext context, Locale locale) {
+    _MyAppState state = context.findAncestorStateOfType<_MyAppState>();
     state.setLocale(locale);
-
   }
 
   @override
@@ -26,17 +28,27 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   Locale _locale;
 
-
-  void setLocale(Locale locale){
+  void setLocale(Locale locale) {
     setState(() {
-      _locale=locale;
+      _locale = locale;
     });
   }
+
+  @override
+  void didChangeDependencies() {
+    getLocale().then((locale) {
+      setState(() {
+        this._locale = locale;
+      });
+    });
+    super.didChangeDependencies();
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: SettingScreen(),
+      home: SignUpScreen(),
       locale: _locale,
       supportedLocales: [Locale('en', 'US'), Locale('ar', 'EG')],
       localizationsDelegates: [
@@ -45,9 +57,10 @@ class _MyAppState extends State<MyApp> {
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-      localeListResolutionCallback: ( deviceLocale, supportedLocales) {
+      localeListResolutionCallback: (deviceLocale, supportedLocales) {
         for (var locale in supportedLocales) {
-          if(locale.languageCode == deviceLocale[0].languageCode&&locale.countryCode==deviceLocale[0].countryCode){
+          if (locale.languageCode == deviceLocale[0].languageCode &&
+              locale.countryCode == deviceLocale[0].countryCode) {
             return deviceLocale[0];
           }
         }

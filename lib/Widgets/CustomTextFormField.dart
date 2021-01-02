@@ -17,11 +17,12 @@ class CustomTextFormField extends StatelessWidget {
           }
         },
         onSaved: onClick,
-        textAlign: TextAlign.right,
-        textDirection: TextDirection.rtl,
+
+        // textAlign: TextAlign.right,
+        // textDirection: TextDirection.rtl,
         decoration: new InputDecoration(
-          suffixIcon: Icon(icon, color: Color(0xFF007AE7)),
-          icon:hint=="كلمة المرور" ?Icon(Icons.visibility_off):null,
+          prefixIcon: Icon(icon, color: Color(0xFF007AE7)),
+         // suffixIcon: ,
           hintText: hint,
           hintStyle: TextStyle(color: Color(0xFF707070)),
           enabledBorder: UnderlineInputBorder(

@@ -1,7 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:task_app/screens/signUpScreen.dart';
+import 'package:task_app/localization/translation.dart';
+import 'package:task_app/screens/homeScreen.dart';
 
 class OtpScreen extends StatefulWidget {
   final String phone, mail, password;
@@ -46,7 +47,7 @@ class _OtpScreenState extends State<OtpScreen> {
                 child: Padding(
                   padding: const EdgeInsets.only(top: 20.0),
                   child: Text(
-                    "تفعيل رقم الهاتف",
+                    getTranslated(context, "number verification"),
                     style: TextStyle(
                         color: Colors.white,
                         fontSize: 20,
@@ -69,7 +70,7 @@ class _OtpScreenState extends State<OtpScreen> {
                 child: Column(
                   children: [
                     Text(
-                      "لقد قمنا بإرسال كود خاص بك علي رقم الهاتف لتتمكن من إنشاء الحساب",
+                      getTranslated(context, "verification message"),
                       maxLines: 2,
                       style: TextStyle(
                           fontSize: 20,
@@ -120,11 +121,14 @@ class _OtpScreenState extends State<OtpScreen> {
                                             smsCode: _pin))
                                     .then((value) async {
                                   if (value.user != null) {
+                                    final user = await FirebaseAuth.instance
+                                        .createUserWithEmailAndPassword(
+                                            email: widget.mail,
+                                            password: widget.password);
                                     Navigator.pushAndRemoveUntil(
                                         context,
                                         MaterialPageRoute(
-                                            builder: (context) =>
-                                                SignUpScreen()),
+                                            builder: (context) => HomeScreen()),
                                         (route) => false);
                                   }
                                 });
@@ -138,7 +142,7 @@ class _OtpScreenState extends State<OtpScreen> {
                           child: Opacity(
                             opacity: 0.8,
                             child: Text(
-                              "تفعيل",
+                              getTranslated(context, "Activate"),
                               style:
                                   TextStyle(color: Colors.white, fontSize: 20),
                             ),

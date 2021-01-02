@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:task_app/localization/translation.dart';
 import 'package:task_app/screens/mainScreen.dart';
 import 'package:task_app/screens/settingscreen.dart';
 
@@ -62,21 +63,20 @@ class _HomeScreenState extends State<HomeScreen> {
         onTap: (int index) {
           setState(() {
             _currentTabIndex = index;
-            print(_currentTabIndex);
-            print("change");
+            currentScreen=_screenss[_currentTabIndex];
           });
         },
         currentIndex: _currentTabIndex,
         type: BottomNavigationBarType.fixed,
         items: [
           BottomNavigationBarItem(
-              icon: Icon(Icons.home), title: Text("الرئيسية")),
+              icon: Icon(Icons.home), title: Text(getTranslated(context,"main"))),
           BottomNavigationBarItem(
-              icon: Icon(Icons.search), title: Text("البحث")),
+              icon: Icon(Icons.settings), title: Text(getTranslated(context, "settings"))),
           BottomNavigationBarItem(
-              icon: Icon(Icons.person), title: Text("الحساب")),
+              icon: Icon(Icons.person), title: Text(getTranslated(context, "account"))),
           BottomNavigationBarItem(
-              icon: Icon(Icons.more_horiz), title: Text("المزيد")),
+              icon: Icon(Icons.more_horiz), title: Text(getTranslated(context,"more"))),
         ],
       ),
       body: currentScreen,

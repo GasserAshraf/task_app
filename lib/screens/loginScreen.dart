@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:task_app/Services/Auth.dart';
 import 'package:task_app/Widgets/CustomTextFormField.dart';
+import 'package:task_app/localization/translation.dart';
 import 'package:task_app/screens/homeScreen.dart';
 import 'package:task_app/screens/signUpScreen.dart';
 import 'package:task_app/screens/validationScreen.dart';
@@ -12,7 +13,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  String _number, _password;
+  String _email, _password;
   final GlobalKey<FormState> _globalKey = GlobalKey<FormState>();
   final _auth = Auth();
 
@@ -36,7 +37,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: Padding(
                     padding: const EdgeInsets.only(top: 20.0),
                     child: Text(
-                      "تسجيل الدخول",
+                      getTranslated(context, "login"),
                       style: TextStyle(
                           color: Colors.white,
                           fontSize: 20,
@@ -45,12 +46,14 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top: 100, left: 100),
-                  child: Container(
-                    height: height * 0.2,
-                    width: width * 0.5,
-                    child: Image(
-                      image: AssetImage("images/Loginicon.png"),
+                  padding: const EdgeInsets.only(top: 100),
+                  child: Center(
+                    child: Container(
+                      height: height * 0.2,
+                      width: width * 0.5,
+                      child: Image(
+                        image: AssetImage("images/Loginicon.png"),
+                      ),
                     ),
                   ),
                 ),
@@ -60,11 +63,11 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: Column(
                     children: [
                       CustomTextFormField(
-                        icon: Icons.phone_iphone,
+                        icon: Icons.mail,
                         onClick: (value) {
-                          _number = value;
+                          _email = value;
                         },
-                        hint: "رقم الهاتف",
+                        hint: getTranslated(context, "email"),
                       ),
                       SizedBox(
                         height: height * 0.01,
@@ -74,16 +77,17 @@ class _LoginScreenState extends State<LoginScreen> {
                         onClick: (value) {
                           _password = value;
                         },
-                        hint: "كلمة المرور",
+                        hint: getTranslated(context, "password"),
                       ),
                       SizedBox(
                         height: height * 0.02,
                       ),
                       Container(
                         alignment: Alignment.topRight,
+
                         child: GestureDetector(
                           child: Text(
-                            "نسيت كلمة المرور ؟",
+                            getTranslated(context, "forget password"),
                             style: TextStyle(
                                 color: Color(0xFF3A3A3A), fontSize: 15),
                           ),
@@ -104,8 +108,10 @@ class _LoginScreenState extends State<LoginScreen> {
                               if (_globalKey.currentState.validate()) {
                                 _globalKey.currentState.save();
                                 try {
-
-                                  print("ok");
+                                  FirebaseAuth.instance.signInWithEmailAndPassword(email: _email, password: _password);
+                                  Navigator.of(context).pushReplacement(
+                                      MaterialPageRoute(
+                                          builder: (context) => HomeScreen()));
                                 } catch (e) {
 
                                   print(e.message);
@@ -115,7 +121,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             child: Opacity(
                               opacity: 0.8,
                               child: Text(
-                                "تسجيل الدخول",
+                                getTranslated(context, "login"),
                                 style: TextStyle(
                                     color: Colors.white, fontSize: 20),
                               ),
@@ -141,7 +147,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               width: width * 0.03,
                             ),
                             new Text(
-                              "أو",
+                              getTranslated(context, "or"),
                               style: new TextStyle(
                                 fontSize: 20.0,
                                 color: Colors.grey,
@@ -168,7 +174,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                             onPressed: () async {
                               // await handleLogin();
-                              _auth.facebookSigninMethod();
+                              final user=await  _auth.facebookSigninMethod();
                             },
                             child: Container(
                               width: width * 0.6,
@@ -177,14 +183,16 @@ class _LoginScreenState extends State<LoginScreen> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  ImageIcon(
-                                    AssetImage("images/facebook.png"),
-                                    color: Colors.white,
+                                  Expanded(
+                                    child: ImageIcon(
+                                      AssetImage("images/facebook.png"),
+                                      color: Colors.white,
+                                    ),
                                   ),
                                   Opacity(
                                     opacity: 0.8,
                                     child: Text(
-                                      "تسجيل الدخول عبر الفيسبوك",
+                                      getTranslated(context, "loginbyfacebook"),
                                       style: TextStyle(
                                           color: Colors.white, fontSize: 20),
                                     ),
@@ -205,7 +213,10 @@ class _LoginScreenState extends State<LoginScreen> {
                               borderRadius: BorderRadius.circular(10.0),
                             ),
                             onPressed: () async {
-                              _auth.googleSigninMethod();
+                            final user=await _auth.googleSigninMethod();
+                              Navigator.of(context).pushReplacement(
+                                  MaterialPageRoute(
+                                      builder: (context) => HomeScreen()));
                             },
                             child: Container(
                               width: width * 0.6,
@@ -214,14 +225,16 @@ class _LoginScreenState extends State<LoginScreen> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  ImageIcon(
-                                    AssetImage("images/google.png"),
-                                    color: Colors.white,
+                                  Expanded(
+                                    child: ImageIcon(
+                                      AssetImage("images/google.png"),
+                                      color: Colors.white,
+                                    ),
                                   ),
                                   Opacity(
                                     opacity: 0.8,
                                     child: Text(
-                                      "تسجيل الدخول عبر جوجل",
+                                      getTranslated(context,"loginbygoogle"),
                                       style: TextStyle(
                                           color: Colors.white, fontSize: 20),
                                     ),
@@ -263,7 +276,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             child: Opacity(
                               opacity: 0.8,
                               child: Text(
-                                "تخطي الدخول",
+                                getTranslated(context, "skipentry"),
                                 style: TextStyle(
                                     color: Colors.white, fontSize: 20),
                               ),
@@ -278,11 +291,11 @@ class _LoginScreenState extends State<LoginScreen> {
                   height: height * 0.95,
                   alignment: Alignment.bottomCenter,
                   child: Row(
-                    textDirection: TextDirection.rtl,
+                   // textDirection: TextDirection.rtl,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        "ليس لديك حساب",
+                        getTranslated(context, "donthaveanaccount"),
                       ),
                       SizedBox(
                         width: width * 0.03,
@@ -311,7 +324,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   }));
                         },
                         child: Text(
-                          "انشاء حساب جديد",
+                          getTranslated(context, "createnewaccount"),
                           style: TextStyle(color: Colors.blue),
                         ),
                       ),

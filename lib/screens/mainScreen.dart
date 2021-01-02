@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:task_app/localization/translation.dart';
 
 class MainScreen extends StatefulWidget {
   @override
@@ -28,12 +29,12 @@ class _MainScreenState extends State<MainScreen> {
                     height: height * 0.06,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      textDirection: TextDirection.rtl,
+                     // textDirection: TextDirection.rtl,
                       children: [
                         Padding(
                           padding: const EdgeInsets.only(right: 16.0),
                           child: Text(
-                            "تذكير بالجرعة",
+                            getTranslated(context, "Dose reminder"),
                             style: TextStyle(color: Color(0xFF707070)),
                           ),
                         ),
@@ -41,14 +42,15 @@ class _MainScreenState extends State<MainScreen> {
                           padding: const EdgeInsets.only(left: 16.0),
                           child: Row(
                             children: [
+
+                              Text(
+                                "01:30",
+                                style: TextStyle(color: Colors.blue),
+                              ),
                               Icon(
                                 Icons.more_horiz,
                                 color: Color(0xFF707070),
                               ),
-                              Text(
-                                "01:30",
-                                style: TextStyle(color: Colors.blue),
-                              )
                             ],
                           ),
                         )
@@ -82,7 +84,7 @@ class _MainScreenState extends State<MainScreen> {
                                     Padding(
                                       padding: const EdgeInsets.only(bottom: 15.0),
                                       child: Text(
-                                        "الاعلان يوضع هنا",
+                                       getTranslated(context, "advertising"),
                                         style: TextStyle(fontSize: 18),
                                       ),
                                     )
@@ -111,15 +113,17 @@ class _MainScreenState extends State<MainScreen> {
                                     width: width * 0.15,
                                     margin: EdgeInsets.all(20),
                                     child: Image(
-                                      image: AssetImage("images/alarm.png"),
+                                      image: AssetImage("images/hospital.png"),
                                     ),
                                   ),
                                 ),
                               ),
                             ),
-                            Text("منبه الادوية")
+                            Text(getTranslated(context, "Hospitals"))
                           ],
                         ),
+
+
                         Column(
                           children: [
                             Padding(
@@ -139,7 +143,7 @@ class _MainScreenState extends State<MainScreen> {
                                 ),
                               ),
                             ),
-                            Text("دكتور")
+                            Text(getTranslated(context, "Doctor"))
                           ],
                         ),
                         Column(
@@ -155,13 +159,13 @@ class _MainScreenState extends State<MainScreen> {
                                     width: width * 0.15,
                                     margin: EdgeInsets.all(20),
                                     child: Image(
-                                      image: AssetImage("images/hospital.png"),
+                                      image: AssetImage("images/alarm.png"),
                                     ),
                                   ),
                                 ),
                               ),
                             ),
-                            Text("مستشفيات")
+                            Text(getTranslated(context, "Drug reminder"))
                           ],
                         ),
                       ],
@@ -173,12 +177,12 @@ class _MainScreenState extends State<MainScreen> {
                     padding: EdgeInsets.only(left: 15, right: 15),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      textDirection: TextDirection.rtl,
+                     // textDirection: TextDirection.rtl,
                       children: [
-                        Text("اقرب دكتور",
+                        Text(getTranslated(context, "nearest doctor"),
                             style: TextStyle(color: Colors.blue, fontSize: 20)),
                         Text(
-                          "عرض الكل",
+                          getTranslated(context, "view all"),
                           style: TextStyle(
                               color: Colors.black,
                               fontSize: 16,
@@ -221,9 +225,9 @@ class _MainScreenState extends State<MainScreen> {
                                                   CrossAxisAlignment.start,
                                               textDirection: TextDirection.rtl,
                                               children: [
-                                                Text("المحافظة / المدينة"),
-                                                Text("اسم الدكتور يكتب هنا"),
-                                                Text(".. التخصصات مثل الباطنة / الجلدي")
+                                                Text(getTranslated(context, "city/Government")),
+                                                Text(getTranslated(context, "Doctor")),
+                                                Text(getTranslated(context, "Majors"))
                                               ],
                                             ),
                                           ),
@@ -241,7 +245,7 @@ class _MainScreenState extends State<MainScreen> {
                                           color: Color(0XFFEBEBEB),
                                       ),
 
-                                      child: Text("   يبعد عنك مسافة 21.6 كم  "),
+                                      child: Text(getTranslated(context, "distance")),
                                     ))
                               ],
                             ),
@@ -252,12 +256,12 @@ class _MainScreenState extends State<MainScreen> {
                     padding: EdgeInsets.only(left: 15, right: 15),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      textDirection: TextDirection.rtl,
+                     // textDirection: TextDirection.rtl,
                       children: [
-                        Text("اقرب المستشفيات",
+                        Text(getTranslated(context, "nearest hospital"),
                             style: TextStyle(color: Colors.blue, fontSize: 20)),
                         Text(
-                          "عرض الكل",
+                          "view all",
                           style: TextStyle(
                               color: Colors.black,
                               fontSize: 16,
@@ -301,9 +305,9 @@ class _MainScreenState extends State<MainScreen> {
                                               CrossAxisAlignment.start,
                                               textDirection: TextDirection.rtl,
                                               children: [
-                                                Text("المحافظة / المدينة"),
-                                                Text("اسم المكان يكتب هنا"),
-                                                Text(".. التخصصات مثل الباطنة / الجلدي")
+                                                Text(getTranslated(context, "city/Government")),
+                                                Text(getTranslated(context, "Hospitals")),
+                                                Text(getTranslated(context, "Majors"))
                                               ],
                                             ),
                                           ),
@@ -321,7 +325,7 @@ class _MainScreenState extends State<MainScreen> {
                                         color: Color(0XFFEBEBEB),
                                       ),
 
-                                      child: Text("   يبعد عنك مسافة 21.6 كم  "),
+                                      child: Text(getTranslated(context, "distance")),
                                     ))
                               ],
                             ),

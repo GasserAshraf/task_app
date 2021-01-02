@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:task_app/Constans.dart';
+import 'package:task_app/localization/translation.dart';
 import 'package:task_app/screens/leadingWizard/firstScreen.dart';
 import 'package:task_app/screens/leadingWizard/thirdScreen.dart';
 import 'package:task_app/screens/loginScreen.dart';
@@ -53,7 +54,7 @@ class _SecondWizardState extends State<SecondWizard> {
                 children: [
                   Center(
                     child: Text(
-                      "النص الأساسي يكتب هنا",
+                      getTranslated(context, "mainText"),
                       style: TextStyle(
                           color: Color(0xFF3A3A3A),
                           fontWeight: FontWeight.bold,
@@ -67,7 +68,7 @@ class _SecondWizardState extends State<SecondWizard> {
                     child: Container(
                       width: width * 0.7,
                       child: Text(
-                        "هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد النص العربى، حيث يمكنك أن تولد مثل",
+                        getTranslated(context, "infoText"),
                         maxLines: 3,
                         textAlign: TextAlign.center,
                         style: TextStyle(
@@ -135,39 +136,7 @@ class _SecondWizardState extends State<SecondWizard> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Container(
-                    alignment: Alignment.bottomRight,
-                    child: ButtonTheme(
-                      minWidth: width * 0.35,
-                      child: RaisedButton(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        onPressed: () {
-                          Navigator.of(context).pushReplacement(new PageRouteBuilder(
-                              opaque: true,
-                              transitionDuration: const Duration(seconds:1 ),
-                              pageBuilder: (BuildContext context, _, __) {
-                                return new FirstWizard();
-                              },
-                              transitionsBuilder: (_, Animation<double> animation, __, Widget child) {
-                                return new SlideTransition(
-                                  child: child,
-                                  position: new Tween<Offset>(
-                                    begin: const Offset(0, 0),
-                                    end: Offset.zero,
-                                  ).animate(animation),
-                                );
-                              }
-                          ));
-                        },
-                        child: Text(
-                          "السابق",
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ),
-                    ),
-                  ),
+
                   Container(
                     alignment: Alignment.bottomRight,
                     child: ButtonTheme(
@@ -196,7 +165,40 @@ class _SecondWizardState extends State<SecondWizard> {
                           ));
                         },
                         child: Text(
-                          "التالي",
+                          getTranslated(context, "next"),
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Container(
+                    alignment: Alignment.bottomRight,
+                    child: ButtonTheme(
+                      minWidth: width * 0.35,
+                      child: RaisedButton(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                        onPressed: () {
+                          Navigator.of(context).pushReplacement(new PageRouteBuilder(
+                              opaque: true,
+                              transitionDuration: const Duration(seconds:1 ),
+                              pageBuilder: (BuildContext context, _, __) {
+                                return new FirstWizard();
+                              },
+                              transitionsBuilder: (_, Animation<double> animation, __, Widget child) {
+                                return new SlideTransition(
+                                  child: child,
+                                  position: new Tween<Offset>(
+                                    begin: const Offset(0, 0),
+                                    end: Offset.zero,
+                                  ).animate(animation),
+                                );
+                              }
+                          ));
+                        },
+                        child: Text(
+                          getTranslated(context, "back"),
                           style: TextStyle(color: Colors.white),
                         ),
                       ),
@@ -229,24 +231,12 @@ class _SecondWizardState extends State<SecondWizard> {
                     ));
                   },
                   child: Text(
-                    "تخطي",
+                    getTranslated(context, "skip"),
                     style: TextStyle(fontSize: 20, color: Color(0xFF707070)),
                   ),
                 ),
               ),
             ),
-            Padding(
-              padding: EdgeInsets.only(right: 25, top: 32),
-              child: Container(
-                alignment: Alignment.topRight,
-                child: GestureDetector(
-                    child: Container(
-                      color: Color(0xFF707070),
-                      width: width * 0.11,
-                      height: height * 0.001,
-                    )),
-              ),
-            )
           ],
         ),
       ),

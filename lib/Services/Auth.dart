@@ -23,7 +23,10 @@ class Auth {
 
 
   void facebookSigninMethod() async {
-    FacebookLoginResult result = await _facebookLogin.logIn(['email','public_profile']);
+
+    final facebookLogin = FacebookLogin();
+    facebookLogin.loginBehavior = FacebookLoginBehavior.webViewOnly;
+    final result = await facebookLogin.logIn(['email', 'public_profile']);
     final accessToken = result.accessToken.token;
     if (result.status == FacebookLoginStatus.loggedIn) {
       final faceCredential = FacebookAuthProvider.credential(accessToken);
