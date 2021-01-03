@@ -107,6 +107,72 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             ),
                           ),
                         ),
+                        Container(
+                          alignment: Alignment.center,
+                          child: ButtonTheme(
+                            minWidth: width * 0.8,
+                            child: RaisedButton(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                              ),
+                              onPressed: () async {
+                                try {
+                                  final user = await _auth.googleSigninMethod();
+                                  Navigator.of(context).pushReplacement(
+                                      new PageRouteBuilder(
+                                          opaque: true,
+                                          transitionDuration:
+                                          const Duration(seconds: 1),
+                                          pageBuilder:
+                                              (BuildContext context, _, __) {
+                                            return new HomeScreen();
+                                          },
+                                          transitionsBuilder: (_,
+                                              Animation<double> animation,
+                                              __,
+                                              Widget child) {
+                                            return new SlideTransition(
+                                              child: child,
+                                              position: new Tween<Offset>(
+                                                begin: const Offset(0, 0),
+                                                end: Offset.zero,
+                                              ).animate(animation),
+                                            );
+                                          }));
+                                } catch (e) {
+                                  Scaffold.of(context).showSnackBar(SnackBar(
+                                    content: Text(e.message),
+                                  ));
+                                }
+                              },
+                              child: Container(
+                                width: width * 0.6,
+                                child: Row(
+                                  textDirection: TextDirection.rtl,
+                                  mainAxisAlignment:
+                                  MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Expanded(
+                                      child: ImageIcon(
+                                        AssetImage("images/google.png"),
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                    Opacity(
+                                      opacity: 0.8,
+                                      child: Text(
+                                        getTranslated(context, "loginbygoogle"),
+                                        style: TextStyle(
+                                            color: Colors.white, fontSize: 20),
+                                      ),
+                                    ),
+                                    //SizedBox(width: width*0.1,),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
                         Row(
                          // textDirection: TextDirection.rtl,
                           children: [

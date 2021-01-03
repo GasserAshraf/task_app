@@ -5,7 +5,6 @@ import 'package:task_app/Widgets/CustomTextFormField.dart';
 import 'package:task_app/localization/translation.dart';
 import 'package:task_app/screens/homeScreen.dart';
 import 'package:task_app/screens/signUpScreen.dart';
-import 'package:task_app/screens/validationScreen.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -84,7 +83,6 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       Container(
                         alignment: Alignment.topRight,
-
                         child: GestureDetector(
                           child: Text(
                             getTranslated(context, "forget password"),
@@ -104,17 +102,20 @@ class _LoginScreenState extends State<LoginScreen> {
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10.0),
                             ),
-                            onPressed: ()async {
+                            onPressed: () async {
                               if (_globalKey.currentState.validate()) {
                                 _globalKey.currentState.save();
                                 try {
-                                  FirebaseAuth.instance.signInWithEmailAndPassword(email: _email, password: _password);
+                                  FirebaseAuth.instance
+                                      .signInWithEmailAndPassword(
+                                          email: _email, password: _password);
                                   Navigator.of(context).pushReplacement(
                                       MaterialPageRoute(
                                           builder: (context) => HomeScreen()));
                                 } catch (e) {
-
-                                  print(e.message);
+                                  Scaffold.of(context).showSnackBar(SnackBar(
+                                    content: Text(e.message),
+                                  ));
                                 }
                               }
                             },
@@ -173,8 +174,34 @@ class _LoginScreenState extends State<LoginScreen> {
                               borderRadius: BorderRadius.circular(10.0),
                             ),
                             onPressed: () async {
-                              // await handleLogin();
-                              final user=await  _auth.facebookSigninMethod();
+                              try {
+                                final user = await _auth.facebookSigninMethod();
+                                Navigator.of(context).pushReplacement(
+                                    new PageRouteBuilder(
+                                        opaque: true,
+                                        transitionDuration:
+                                            const Duration(seconds: 1),
+                                        pageBuilder:
+                                            (BuildContext context, _, __) {
+                                          return new HomeScreen();
+                                        },
+                                        transitionsBuilder: (_,
+                                            Animation<double> animation,
+                                            __,
+                                            Widget child) {
+                                          return new SlideTransition(
+                                            child: child,
+                                            position: new Tween<Offset>(
+                                              begin: const Offset(0, 0),
+                                              end: Offset.zero,
+                                            ).animate(animation),
+                                          );
+                                        }));
+                              } catch (e) {
+                                Scaffold.of(context).showSnackBar(SnackBar(
+                                  content: Text(e.message),
+                                ));
+                              }
                             },
                             child: Container(
                               width: width * 0.6,
@@ -213,10 +240,34 @@ class _LoginScreenState extends State<LoginScreen> {
                               borderRadius: BorderRadius.circular(10.0),
                             ),
                             onPressed: () async {
-                            final user=await _auth.googleSigninMethod();
-                              Navigator.of(context).pushReplacement(
-                                  MaterialPageRoute(
-                                      builder: (context) => HomeScreen()));
+                              try {
+                                final user = await _auth.googleSigninMethod();
+                                Navigator.of(context).pushReplacement(
+                                    new PageRouteBuilder(
+                                        opaque: true,
+                                        transitionDuration:
+                                        const Duration(seconds: 1),
+                                        pageBuilder:
+                                            (BuildContext context, _, __) {
+                                          return new HomeScreen();
+                                        },
+                                        transitionsBuilder: (_,
+                                            Animation<double> animation,
+                                            __,
+                                            Widget child) {
+                                          return new SlideTransition(
+                                            child: child,
+                                            position: new Tween<Offset>(
+                                              begin: const Offset(0, 0),
+                                              end: Offset.zero,
+                                            ).animate(animation),
+                                          );
+                                        }));
+                              } catch (e) {
+                                Scaffold.of(context).showSnackBar(SnackBar(
+                                  content: Text(e.message),
+                                ));
+                              }
                             },
                             child: Container(
                               width: width * 0.6,
@@ -234,7 +285,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   Opacity(
                                     opacity: 0.8,
                                     child: Text(
-                                      getTranslated(context,"loginbygoogle"),
+                                      getTranslated(context, "loginbygoogle"),
                                       style: TextStyle(
                                           color: Colors.white, fontSize: 20),
                                     ),
@@ -255,23 +306,27 @@ class _LoginScreenState extends State<LoginScreen> {
                               borderRadius: BorderRadius.circular(10.0),
                             ),
                             onPressed: () {
-                              Navigator.of(context).pushReplacement(new PageRouteBuilder(
-                                  opaque: true,
-                                  transitionDuration: const Duration(seconds:1 ),
-                                  pageBuilder: (BuildContext context, _, __) {
-                                    return new HomeScreen();
-                                  },
-                                  transitionsBuilder: (_, Animation<double> animation, __, Widget child) {
-                                    return new SlideTransition(
-                                      child: child,
-                                      position: new Tween<Offset>(
-                                        begin: const Offset(0, 0),
-                                        end: Offset.zero,
-                                      ).animate(animation),
-                                    );
-                                  }
-                              ));
-
+                              Navigator.of(context).pushReplacement(
+                                  new PageRouteBuilder(
+                                      opaque: true,
+                                      transitionDuration:
+                                          const Duration(seconds: 1),
+                                      pageBuilder:
+                                          (BuildContext context, _, __) {
+                                        return new HomeScreen();
+                                      },
+                                      transitionsBuilder: (_,
+                                          Animation<double> animation,
+                                          __,
+                                          Widget child) {
+                                        return new SlideTransition(
+                                          child: child,
+                                          position: new Tween<Offset>(
+                                            begin: const Offset(0, 0),
+                                            end: Offset.zero,
+                                          ).animate(animation),
+                                        );
+                                      }));
                             },
                             child: Opacity(
                               opacity: 0.8,
@@ -291,7 +346,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   height: height * 0.95,
                   alignment: Alignment.bottomCenter,
                   child: Row(
-                   // textDirection: TextDirection.rtl,
+                    // textDirection: TextDirection.rtl,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
